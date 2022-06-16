@@ -24,7 +24,7 @@ import cors from 'cors';
 
 
 
-const server  = new Server();
+const server  = Server.instance;
 
 //antes de las rutas bodyparse trasorma el formato para que quede como un objeto lo que sea que me manden siempre regresalo como un objeto de js
 server.app.use(bodyPaser.urlencoded({extended:true}));
