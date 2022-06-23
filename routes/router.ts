@@ -1,6 +1,9 @@
 import {Router,Request,Response} from 'express';
 import Server from '../classes/server';
+import { usuariosConectados } from '../sockets/socket';
 
+//resquest es lo que le pides al servidor 
+//la response es lo que te manda 
 
 //creacion de rutas api
 //router es lo que ocuparemos para crear nuestras api endpoins o nuestro rest
@@ -66,6 +69,40 @@ router.post('/mensajes/:id', (req:Request,res:Response) =>{
     });
 
 });
+
+//Servicio para obtener todos los IDs de los usuarios 
+router.get('/usuarios',async (req: Request, res: Response) => {
+  //nueva instacia de nuestro servidor
+  const server = Server.instance;
+
+  await server.io.fetchSockets().then((sockets) => {
+
+      res.json({
+          ok: true,
+          // clientes
+          clientes: sockets.map( cliente => cliente.id)
+      });
+
+  }).catch((err) => {
+
+      res.json({
+          ok: false,
+          err
+      })
+  });
+});
+
+//obtener usuarios y sus nombres
+router.get('/usuarios/detalle',async (req: Request, res: Response) => {
+
+   
+
+  res.json({
+    ok: false,
+    clientes: usuariosConectados.getLista() 
+  });
+});
+
 
 
 export default router;
