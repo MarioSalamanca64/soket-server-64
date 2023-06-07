@@ -16,10 +16,10 @@
 //en otra terminal misma ruta del proyecto
 //nodemon dist/
 
-import Server from './classes/server';
-import router  from './routes/router';
-import bodyPaser from 'body-parser';
-import cors from 'cors';
+const Server = require('./classes/server');
+const  router = require('./routes/router');
+const bodyPaser = require( 'body-parser');
+const cors = require('cors');
 
 
 
